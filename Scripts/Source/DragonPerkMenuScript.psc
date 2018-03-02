@@ -55,7 +55,7 @@ event OnPageReset(string page)
 		AddHeaderOption("Options")
 		AddHeaderOption("Stats")
 		
-		_perksPerSoulSlider = AddSliderOption("Perks per Soul", _perksPerSoul, "{0}")
+		_perksPerSoulSlider = AddSliderOption("Perks per Exchange", _perksPerSoul, "{0}")
 		
 		AddTextOption("Souls: ", ((PlayerRef.GetActorValue("dragonsouls") as Int) as String)) ; Seriously no implicit cast to String available? wtf
 		
@@ -70,7 +70,7 @@ event OnPageReset(string page)
 		AddHeaderOption("Options")
 		AddHeaderOption("Stats")
 		
-		_attribPerSoulSlider = AddSliderOption("Points per Soul", _attribPerSoul, "{0}")
+		_attribPerSoulSlider = AddSliderOption("Points per Exchange", _attribPerSoul, "{0}")
 		
 		AddTextOption("Souls: ", ((PlayerRef.GetActorValue("dragonsouls") as Int) as String))
 		
@@ -169,36 +169,42 @@ event OnOptionSelect(int optionCode)
 	
 endEvent
 
+; Performs a simple clamp between (min, inf) inclusive.
+Float function SanitizeGlobal(float value, float min)
+	if(value < min)
+		value = min
+	endIf
+	return value
+endFunction
 
 event OnOptionSliderOpen(int optionCode)
 	
-	; TODO: Place max ranges into globals instead?
 	if(optionCode == _perksPerSoulSlider)
 	
 		SetSliderDialogStartValue(_perksPerSoul)
 		SetSliderDialogDefaultValue(1)
-		SetSliderDialogRange(1, ae_dragonPerkPerksSliderMax.GetValue()) ; DefaultMax = 20
+		SetSliderDialogRange(1, SanitizeGlobal(ae_dragonPerkPerksSliderMax.GetValue(), 1)) ; DefaultMax = 20
 		SetSliderDialogInterval(1)
 		
 	elseIf(optionCode == _soulsPerPerkExchangeSlider)
 		
 		SetSliderDialogStartValue(_soulsPerPerkExchange)
 		SetSliderDialogDefaultValue(1)
-		SetSliderDialogRange(1, ae_dragonPerkExchangeSliderMax.GetValue()) ; DefaultMax = 20
+		SetSliderDialogRange(1, SanitizeGlobal(ae_dragonPerkExchangeSliderMax.GetValue(), 1)) ; DefaultMax = 20
 		SetSliderDialogInterval(1)
 		
 	elseIf(optionCode == _attribPerSoulSlider)
 	
 		SetSliderDialogStartValue(_attribPerSoul)
 		SetSliderDialogDefaultValue(1)
-		SetSliderDialogRange(1, ae_dragonPerkAttribSliderMax.GetValue()) ; DefaultMax = 400
+		SetSliderDialogRange(1, SanitizeGlobal(ae_dragonPerkAttribSliderMax.GetValue(), 1)) ; DefaultMax = 400
 		SetSliderDialogInterval(1)
 	
 	elseIf(optionCode == _soulsPerAttribExchangeSlider)
 	
 		SetSliderDialogStartValue(_soulsPerAttribExchange)
 		SetSliderDialogDefaultValue(1)
-		SetSliderDialogRange(1, ae_dragonPerkExchangeSliderMax.GetValue()) ; DefaultMax = 20
+		SetSliderDialogRange(1, SanitizeGlobal(ae_dragonPerkExchangeSliderMax.GetValue(), 1)) ; DefaultMax = 20
 		SetSliderDialogInterval(1)
 	
 	endIf

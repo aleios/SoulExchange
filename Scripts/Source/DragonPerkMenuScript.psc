@@ -3,6 +3,10 @@ scriptname DragonPerkMenuScript extends SKI_ConfigBase
 ; Properties
 Actor Property PlayerRef Auto
 
+GlobalVariable Property ae_dragonPerkExchangeSliderMax Auto
+GlobalVariable Property ae_dragonPerkPerksSliderMax Auto
+GlobalVariable Property ae_dragonPerkAttribSliderMax Auto
+
 ; Script locals
 Float _perksPerSoul = 1.0
 Float _soulsPerPerkExchange = 1.0
@@ -24,7 +28,7 @@ Int _convertAttribButton
 String[] _attribList
 
 int function GetVersion()
-	return 1
+	return 2
 endFunction
 
 event OnConfigInit()
@@ -38,6 +42,10 @@ event OnConfigInit()
 	_attribList[2] = "Stamina"
 	_attribList[3] = "Carry Weight"
 	
+endEvent
+
+event OnVersionUpdate(int version)
+	; Not currently used but maybe someday required.
 endEvent
 
 event OnPageReset(string page)
@@ -169,28 +177,28 @@ event OnOptionSliderOpen(int optionCode)
 	
 		SetSliderDialogStartValue(_perksPerSoul)
 		SetSliderDialogDefaultValue(1)
-		SetSliderDialogRange(1, 20)
+		SetSliderDialogRange(1, ae_dragonPerkPerksSliderMax.GetValue()) ; DefaultMax = 20
 		SetSliderDialogInterval(1)
 		
 	elseIf(optionCode == _soulsPerPerkExchangeSlider)
 		
 		SetSliderDialogStartValue(_soulsPerPerkExchange)
 		SetSliderDialogDefaultValue(1)
-		SetSliderDialogRange(1, 20)
+		SetSliderDialogRange(1, ae_dragonPerkExchangeSliderMax.GetValue()) ; DefaultMax = 20
 		SetSliderDialogInterval(1)
 		
 	elseIf(optionCode == _attribPerSoulSlider)
 	
 		SetSliderDialogStartValue(_attribPerSoul)
 		SetSliderDialogDefaultValue(1)
-		SetSliderDialogRange(1, 400)
+		SetSliderDialogRange(1, ae_dragonPerkAttribSliderMax.GetValue()) ; DefaultMax = 400
 		SetSliderDialogInterval(1)
 	
 	elseIf(optionCode == _soulsPerAttribExchangeSlider)
 	
 		SetSliderDialogStartValue(_soulsPerAttribExchange)
 		SetSliderDialogDefaultValue(1)
-		SetSliderDialogRange(1, 20)
+		SetSliderDialogRange(1, ae_dragonPerkExchangeSliderMax.GetValue()) ; DefaultMax = 20
 		SetSliderDialogInterval(1)
 	
 	endIf

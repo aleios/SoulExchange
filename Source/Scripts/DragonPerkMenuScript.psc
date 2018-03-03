@@ -33,8 +33,8 @@ endFunction
 
 event OnConfigInit()
 	Pages = new string[2]
-	Pages[0] = "Souls To Perks"
-	Pages[1] = "Souls To Attributes"
+	Pages[0] = "Souls to Perks"
+	Pages[1] = "Souls to Attributes"
 	
 	_attribList = new String[4]
 	_attribList[0] = "Health"
@@ -57,9 +57,9 @@ event OnPageReset(string page)
 		
 		_perksPerSoulSlider = AddSliderOption("Perks per Exchange", _perksPerSoul, "{0}")
 		
-		AddTextOption("Souls: ", ((PlayerRef.GetActorValue("dragonsouls") as Int) as String)) ; Seriously no implicit cast to String available? wtf
+		AddTextOption("Souls: ", ((PlayerRef.GetActorValue("DragonSouls") as Int) as String)) ; Seriously no implicit cast to String available? wtf
 		
-		_soulsPerPerkExchangeSlider = AddSliderOption("Souls Per Exchange", _soulsPerPerkExchange, "{0}")
+		_soulsPerPerkExchangeSlider = AddSliderOption("Souls per Exchange", _soulsPerPerkExchange, "{0}")
 		
 		AddTextOption("Perks: ", (Game.GetPerkPoints() as String))
 		
@@ -72,9 +72,9 @@ event OnPageReset(string page)
 		
 		_attribPerSoulSlider = AddSliderOption("Points per Exchange", _attribPerSoul, "{0}")
 		
-		AddTextOption("Souls: ", ((PlayerRef.GetActorValue("dragonsouls") as Int) as String))
+		AddTextOption("Souls: ", ((PlayerRef.GetActorValue("DragonSouls") as Int) as String))
 		
-		_soulsPerAttribExchangeSlider = AddSliderOption("Souls Per Exchange", _soulsPerAttribExchange, "{0}")
+		_soulsPerAttribExchangeSlider = AddSliderOption("Souls per Exchange", _soulsPerAttribExchange, "{0}")
 		
 		AddTextOption("Health: ", (PlayerRef.GetBaseActorValue("health") as String))
 		
